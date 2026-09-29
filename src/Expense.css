@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@300;400;500&display=swap');
+ 
+/* ─── Reset & Root ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+:root {
+  --bg:             #f0ece5;
+  --surface:        #ffffff;
+  --surface-item:   #fdf8f2;
+  --border:         #e4ddd4;
+  --border-item:    #ddd5c8;
+  --text-primary:   #1c1916;
+  --text-secondary: #6e6860;
+  --text-muted:     #aaa099;
+  --accent:         #4e7153;
+  --accent-mid:     #3d5a41;
+  --accent-light:   #eaf2eb;
+  --accent-border:  #bcd4be;
+  --item-bg:        #fff8ed;
+  --item-border:    #f0dfc0;
+  --item-text:      #7a5c2e;
+  --item-num:       #c49a4a;
+  --danger:         #b83232;
+  --danger-light:   #fdf1f1;
+  --danger-border:  #f2c4c4;
+  --shadow-sm:      0 1px 4px rgba(0,0,0,0.05);
+  --shadow-md:      0 6px 20px rgba(0,0,0,0.07);
+  --radius:         14px;
+  --radius-sm:      9px;
+}
+ 
+body {
+  background-color: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+ 
+/* ─── Container ────────────────────────────────────────────── */
+.expense-container {
+  max-width: 500px;
+  margin: 44px auto;
+  padding: 0 20px 64px;
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* ══════════════════════════════════════════════════════════════
+   HEADING — decorated with lines + small ornament
+══════════════════════════════════════════════════════════════ */
+.Heading {
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px 0 26px;
+}
+ 
+/* top thin rule */
+.Heading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 2px;
+}
+ 
+/* bottom decorative rule with centre diamond */
+.Heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+}
+ 
+/* small leaf accent under heading text */
+.Heading span.heading-inner {
+  display: block;
+}
+ 
+/* We'll use a pseudo wrapper trick — style the emoji separately */
+.Heading .emoji {
+  font-size: 1.4rem;
+  vertical-align: middle;
+  margin-left: 8px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+}
+ 
+/* Tagline / subtext under heading */
+.heading-sub {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 28px;
+}
+ 
+/* ─── Budget Input ──────────────────────────────────────────── */
+.Bdgt {
+  width: 100%;
+  padding: 13px 18px 13px 44px;
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23aaa099' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2'/%3E%3Cpath d='M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 16px center;
+  background-size: 16px;
+}
+ 
+.Bdgt::placeholder {
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.88rem;
+}
+ 
+.Bdgt:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(78, 113, 83, 0.13);
+}
+ 
+/* ══════════════════════════════════════════════════════════════
+   STATS CARD — unified pill card
+══════════════════════════════════════════════════════════════ */
+.stats-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-md);
+}
+ 
+.hd1, .hd2, .hd3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 20px;
+}
+ 
+.hd1 {
+  border-bottom: 1px dashed var(--border);
+}
+ 
+.hd2 {
+  border-bottom: 1px dashed var(--border);
+}
+ 
+.hd3 {
+  background: var(--accent-light);
+  border-top: 1px solid var(--accent-border);
+}
+ 
+/* label part */
+.hd1 .stat-label,
+.hd2 .stat-label,
+.hd3 .stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+ 
+.hd3 .stat-label {
+  color: var(--accent);
+}
+ 
+/* value part */
+.hd1 .stat-value,
+.hd2 .stat-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+ 
+.hd3 .stat-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent-mid);
+}
+ 
+/*
+  Because the JSX uses raw <h3> tags with text like "Total Spent: $400",
+  we style those directly too (fallback if you don't split into spans):
+*/
+.hd1, .hd2 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+ 
+.hd3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent-mid);
+  letter-spacing: 0.01em;
+}
+ 
+/* ─── Budget Exceeded Warning ───────────────────────────────── */
+.expense-container h3[style] {
+  background: var(--danger-light) !important;
+  color: var(--danger) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--danger-border) !important;
+  margin-bottom: 16px !important;
+  letter-spacing: 0.02em !important;
+}
+ 
+/* ══════════════════════════════════════════════════════════════
+   EXPENSE LIST — warm amber/wheat toned items
+══════════════════════════════════════════════════════════════ */
+ol {
+  list-style: none;
+  counter-reset: expense-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 26px;
+}
+ 
+ol:empty {
+  margin-bottom: 0;
+}
+ 
+ol li {
+  counter-increment: expense-counter;
+  position: relative;
+  padding: 14px 44px 14px 52px;
+ 
+  /* ✦ The key change: warm amber/wheat distinct from input surface */
+  background: var(--item-bg);
+  border: 1px solid var(--item-border);
+  border-left: 3px solid var(--item-num);
+  border-radius: var(--radius-sm);
+ 
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--item-text);
+ 
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 4px rgba(180,140,70,0.08);
+  line-height: 1.5;
+}
+ 
+/* number badge */
+ol li::before {
+  content: counter(expense-counter);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--item-num);
+  background: #fff3d6;
+  border: 1px solid #f0dfc0;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+ 
+/* hover = delete affordance */
+ol li:hover {
+  background: var(--danger-light);
+  border-color: var(--danger-border);
+  border-left-color: var(--danger);
+  color: var(--danger);
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(184,50,50,0.1);
+}
+ 
+ol li:hover::before {
+  background: #fde8e8;
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+ 
+/* ✕ on hover */
+ol li::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: var(--danger);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+ 
+ol li:hover::after {
+  content: '✕';
+  opacity: 0.75;
+}
+ 
+/* ══════════════════════════════════════════════════════════════
+   SECTION DIVIDER — "Add New Expense" label
+══════════════════════════════════════════════════════════════ */
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  margin-top: 4px;
+}
+ 
+.form-divider span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+ 
+.form-divider::before,
+.form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+ 
+/* ─── Form Inputs ───────────────────────────────────────────── */
+.expense-container input[type="text"],
+.expense-container input[type="number"]:not(.Bdgt),
+.expense-container input[type="date"] {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: var(--shadow-sm);
+  display: block;
+  margin-bottom: 10px;
+}
+ 
+.expense-container input[type="date"] {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+ 
+.expense-container input::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
+  font-size: 0.87rem;
+}
+ 
+.expense-container input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(78, 113, 83, 0.12);
+}
+ 
+/* ─── Remove BR spacing (handled by margins) ─────────────────── */
+.expense-container br {
+  display: none;
+}
+ 
+/* ─── Add Button ─────────────────────────────────────────────── */
+#btn {
+  width: 100%;
+  padding: 15px 24px;
+  margin-top: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 10px rgba(78, 113, 83, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+ 
+#btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+ 
+#btn:hover {
+  background: var(--accent-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(78, 113, 83, 0.32);
+}
+ 
+#btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(78, 113, 83, 0.2);
+}
+ 
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+ 
+/* ══════════════════════════════════════════════════════════════
+   ANIMATION — items slide in on render
+══════════════════════════════════════════════════════════════ */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+ 
+ol li {
+  animation: slideIn 0.22s ease forwards;
+}
